@@ -11,11 +11,11 @@ jobs:
   terraform-init:
     name: Terraform Init
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    
+
     - name: Install Azure CLI
       shell: bash
       run: |
@@ -30,18 +30,18 @@ jobs:
         az login --use-device-code
         echo ""
         echo "Azure login successful!"
-    
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.13.0
-    
+
     - name: Create backend config
       run: |
         cat << 'EOF' > backend.tfvars
         ${{ vars.BACKEND_TFVARS }}
         EOF
-    
+
     - name: Terraform Init
       run: terraform init -backend-config=backend.tfvars
 

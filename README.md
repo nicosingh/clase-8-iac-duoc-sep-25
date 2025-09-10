@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Este repositorio implementa infraestructura como código (IaC) en Microsoft Azure utilizando Terraform. 
+Este repositorio implementa infraestructura como código (IaC) en Microsoft Azure utilizando Terraform.
 
 El proyecto despliega una infraestructura base en Azure para un entorno de desarrollo, utilizando un módulo personalizado que centraliza la configuración de recursos comunes. La infraestructura se gestiona de forma automatizada y versionada, permitiendo despliegues consistentes y reproducibles.
 
@@ -57,4 +57,3 @@ Para contribuir a este proyecto:
 8. Crea un **Pull Request** describiendo los cambios realizados
 
 **Nota importante**: Antes de hacer cambios, asegúrate de que tu configuración de backend apunte a un Storage Account de prueba para evitar conflictos con el entorno de producción.
-
