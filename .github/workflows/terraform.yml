@@ -12,6 +12,8 @@ jobs:
     name: Terraform Desarrollo
     runs-on: ubuntu-latest
 
+    environment: desarrollo
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
