@@ -1,0 +1,37 @@
+name: Terraform Init
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  terraform-init:
+    name: Terraform Init
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Azure CLI
+      uses: azure/setup-azure-cli@v1
+    
+    - name: Azure Login with Device Code
+      run: az login --use-device-code
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.13.0
+    
+    - name: Create backend config
+      run: |
+        cat << 'EOF' > backend.tfvars
+        ${{ vars.BACKEND_TFVARS }}
+        EOF
+    
+    - name: Terraform Init
+      run: terraform init -backend-config=backend.tfvars
