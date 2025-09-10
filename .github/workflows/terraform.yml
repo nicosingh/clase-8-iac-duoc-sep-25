@@ -1,4 +1,4 @@
-name: Terraform Init
+name: Terraform CI
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  terraform-init:
-    name: Terraform Init
+  terraform-desarrollo:
+    name: Terraform Desarrollo
     runs-on: ubuntu-latest
 
     steps:
@@ -44,6 +44,9 @@ jobs:
 
     - name: Terraform Init
       run: terraform init -backend-config=backend.tfvars
+
+    - name: Select or create Terraform workspace
+      run: terraform workspace select desarrollo || terraform workspace new desarrollo
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
