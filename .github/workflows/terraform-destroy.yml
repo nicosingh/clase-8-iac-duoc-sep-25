@@ -1,0 +1,35 @@
+name: Terraform Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to destroy'
+        required: true
+        type: choice
+        options:
+          - desarrollo
+          - produccion
+
+jobs:
+  destroy:
+    name: TF destroy
+    runs-on: ubuntu-latest
+
+    environment: ${{ inputs.environment }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Azure Login
+      uses: ./.github/actions/azure-login
+
+    - name: Terraform Init and Workspace
+      uses: ./.github/actions/terraform-init-and-workspace
+      with:
+        workspace-name: ${{ inputs.environment }}
+        backend-tfvars: ${{ vars.BACKEND_TFVARS }}
+
+    - name: Terraform Destroy
+      run: terraform apply -auto-approve -destroy
