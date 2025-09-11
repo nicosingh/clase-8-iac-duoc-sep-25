@@ -13,3 +13,5 @@ repos:
     - id: terraform_validate
     - id: terraform_docs
     - id: terraform_checkov
+      args:
+        - --args=--framework terraform
