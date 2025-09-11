@@ -24,6 +24,7 @@ jobs:
       uses: ./.github/actions/terraform-init-and-workspace
       with:
         workspace-name: ${{ github.job }}
+        backend-tfvars: ${{ vars.BACKEND_TFVARS }}
 
     - name: Terraform Plan
       run: terraform plan -out=tfplan-${{ github.job }}
@@ -54,6 +55,7 @@ jobs:
       uses: ./.github/actions/terraform-init-and-workspace
       with:
         workspace-name: produccion
+        backend-tfvars: ${{ vars.BACKEND_TFVARS }}
 
     - name: Terraform Plan
       run: terraform plan -out=tfplan-produccion
@@ -82,6 +84,7 @@ jobs:
       uses: ./.github/actions/terraform-init-and-workspace
       with:
         workspace-name: ${{ github.job }}
+        backend-tfvars: ${{ vars.BACKEND_TFVARS }}
 
     - name: Download Terraform Plan Artifact
       uses: actions/download-artifact@v4

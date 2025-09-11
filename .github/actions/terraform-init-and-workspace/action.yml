@@ -2,6 +2,9 @@ name: 'Terraform Init and Workspace'
 description: 'Setup Terraform, init backend and select/create workspace'
 
 inputs:
+  backend-tfvars:
+    description: 'Path to backend configuration variables file'
+    required: true
   workspace-name:
     description: 'Name of the Terraform workspace to use'
     required: true
@@ -18,7 +21,7 @@ runs:
      - name: Create backend config
        run: |
          cat << 'EOF' > backend.tfvars
-         ${{ vars.BACKEND_TFVARS }}
+         ${{ inputs.backend-tfvars }}
          EOF
        shell: bash
 
@@ -27,5 +30,5 @@ runs:
        shell: bash
 
      - name: Select or create Terraform workspace
-       shell: bash
        run: terraform workspace select ${{ inputs.workspace-name }} || terraform workspace new ${{ inputs.workspace-name }}
+       shell: bash
