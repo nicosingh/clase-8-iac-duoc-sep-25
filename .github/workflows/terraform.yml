@@ -11,7 +11,6 @@ jobs:
   desarrollo:
     name: Terraform Desarrollo
     runs-on: ubuntu-latest
-
     environment: ${{ github.job }}
 
     steps:
@@ -50,5 +49,15 @@ jobs:
     - name: Select or create Terraform workspace
       run: terraform workspace select ${{ github.job }} || terraform workspace new ${{ github.job }}
 
+    - name: Terraform Plan
+      run: terraform plan -out=tfplan-${{ github.job }}
+
+    - name: Upload Terraform Plan as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: terraform-plan-${{ github.job }}
+        path: tfplan-${{ github.job }}
+        retention-days: 30
+
     - name: Terraform Apply
-      run: terraform plan
+      run: terraform apply -auto-approve tfplan-${{ github.job }}
