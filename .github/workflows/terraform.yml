@@ -51,4 +51,4 @@ jobs:
       run: terraform workspace select ${{ github.job }} || terraform workspace new ${{ github.job }}
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: terraform plan
