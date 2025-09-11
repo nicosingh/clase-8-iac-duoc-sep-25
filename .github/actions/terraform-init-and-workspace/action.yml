@@ -1,0 +1,31 @@
+name: 'Terraform Init and Workspace'
+description: 'Setup Terraform, init backend and select/create workspace'
+
+inputs:
+  workspace-name:
+    description: 'Name of the Terraform workspace to use'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+     - name: Setup Terraform
+       uses: hashicorp/setup-terraform@v3
+       with:
+         terraform_version: 1.13.0
+       shell: bash
+
+     - name: Create backend config
+       run: |
+         cat << 'EOF' > backend.tfvars
+         ${{ vars.BACKEND_TFVARS }}
+         EOF
+       shell: bash
+
+     - name: Terraform Init
+       run: terraform init -backend-config=backend.tfvars
+       shell: bash
+
+     - name: Select or create Terraform workspace
+       shell: bash
+       run: terraform workspace select ${{ inputs.workspace-name }} || terraform workspace new ${{ inputs.workspace-name }}
