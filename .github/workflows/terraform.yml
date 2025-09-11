@@ -17,20 +17,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install Azure CLI
-      shell: bash
-      run: |
-        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-    - name: Azure Login with Device Code
-      shell: bash
-      run: |
-        echo "Starting Azure login with device code..."
-        echo "You will see a code and URL below. Open the URL in your browser and enter the code to authenticate."
-        echo ""
-        az login --use-device-code
-        echo ""
-        echo "Azure login successful!"
+    - name: Azure Login
+      uses: ./.github/actions/azure-login
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -71,20 +59,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install Azure CLI
-      shell: bash
-      run: |
-        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-    - name: Azure Login with Device Code
-      shell: bash
-      run: |
-        echo "Starting Azure login with device code..."
-        echo "You will see a code and URL below. Open the URL in your browser and enter the code to authenticate."
-        echo ""
-        az login --use-device-code
-        echo ""
-        echo "Azure login successful!"
+    - name: Azure Login
+      uses: ./.github/actions/azure-login
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -123,20 +99,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install Azure CLI
-      shell: bash
-      run: |
-        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-    - name: Azure Login with Device Code
-      shell: bash
-      run: |
-        echo "Starting Azure login with device code..."
-        echo "You will see a code and URL below. Open the URL in your browser and enter the code to authenticate."
-        echo ""
-        az login --use-device-code
-        echo ""
-        echo "Azure login successful!"
+    - name: Azure Login
+      uses: ./.github/actions/azure-login
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
