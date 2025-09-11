@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  terraform-desarrollo:
+  desarrollo:
     name: Terraform Desarrollo
     runs-on: ubuntu-latest
 
-    environment: desarrollo
+    environment: ${{ github.job }}
 
     steps:
     - name: Checkout repository
@@ -48,7 +48,7 @@ jobs:
       run: terraform init -backend-config=backend.tfvars
 
     - name: Select or create Terraform workspace
-      run: terraform workspace select desarrollo || terraform workspace new desarrollo
+      run: terraform workspace select ${{ github.job }} || terraform workspace new ${{ github.job }}
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
